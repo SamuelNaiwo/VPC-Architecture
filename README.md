@@ -88,25 +88,25 @@
 
 ### Attach Route Table to Subnet
 
-1. Click subnet association.
+5. Click subnet association.
 
-2. Click edit subnet association.
+6. Click edit subnet association.
 
-3. Select subnet and save.
+7. Select subnet and save.
 
 ### Attach Route Table To Internet Gateway
 
-1. Select routes tab.
+8. Select routes tab.
 
-2. Click edit routes.
+9. Click edit routes.
 
-3. Click add routes.
+10. Click add routes.
 
-4. Select your internet gateway and save changes.
+11. Select your internet gateway and save changes.
 
 ## Launch App Instance From AMI
 
-1. Select your AMI that you have created.
+1. Select your AMI that you have created for your app.
 
 2. Launch a new instance from that AMI.
 
@@ -124,6 +124,12 @@
 - Add a new rule with source type `Anywhere` and port range `3000`.
 
 6. Launch your new instance.
+
+7. Open your terminal/bash window.
+
+8. Change directory into your .ssh folder `cd .ssh`
+
+9. Copy your ssh key from your AWS app instance and paste into terminal: `ssh -i "file.pem" ubuntu@20.55.03.165` and select yes.
 
 ## Create Private Subnet
 
@@ -151,10 +157,55 @@
 
 ### Attach Route Table to Subnet
 
-1. Click subnet association.
+5. Click subnet association.
 
-2. Click edit subnet association.
+6. Click edit subnet association.
 
-3. Select your private subnet and click save.
+7. Select your private subnet and click save.
 
 ## Launch DB Instance from AMI
+
+1. Select the AMI you created for your database.
+
+2. Launch a new instance from this AMI.
+
+3. Name the instance. I went with `samuel_tech221_mongo_db`
+
+4. Instance Type is `t2.micro` and Key Pair is `tech221`. This could be different depending on requirements.
+
+5. Under Network Settings
+
+- Tick the box to `Allow SSH traffic from` and select `MY IP`.
+- Click the edit button.
+- Select the VPC required and select your private subnet you just created. Mine was called `samuel_tech221_private_db_subnet`
+- Disbale auto-assign public IP.
+- Add a new rule with source type `Anywhere` and port range `27017`.
+
+6. Launch your new instance.
+
+## Connect App and DB Instance
+
+1. Open your terminal connected to your app instance.
+
+2. Use the following command to open your .bashrc folder: `sudo nano .bashrc`
+
+3. Scrolll down to the bottom and delete the environment variable we used before, save the changes and exit.
+
+4. Use the following command to referesh the changes: `source .bashrc`.
+
+5. Open your .bashrc folder again: `sudo nano .bashrc`.
+
+6. Scroll down to the bottom and enter your environment variable. I used in this example `export DB_HOST=mongodb://<private-IP>:27017/posts`
+
+7. Save your changes and exit.
+
+8. Use the following command to referesh the changes: `source .bashrc`.
+
+9. Change directory into app folder. `cd app`
+
+10. Launch the app with `node app.js` or `npm start`
+
+11. Paste your app instance public IPv4 into the browser and your app should load. `63.32.91.173:3000/posts`
+
+    ![Alt text](img/VPC%20NodeApp%20Launch.png)
+
