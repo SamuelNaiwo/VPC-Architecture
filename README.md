@@ -104,6 +104,8 @@
 
 11. Select your internet gateway and save changes.
 
+    ![Alt text](img/Screenshot%202023-04-25%20at%2012.29.13.png)
+
 ## Launch App Instance From AMI
 
 1. Select your AMI that you have created for your app.
